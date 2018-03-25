@@ -34,7 +34,8 @@ library(plotly)
 library(sqldf)
 library(googleVis)
 
-df <- read.csv("salary.csv", header = TRUE, sep = ",", stringsAsFactors = FALSE)
+#x <- read.csv("salary.csv", header = TRUE, sep = ",", stringsAsFactors = FALSE)
+load("salary.Rdata")
 head(df)
 
 ```
@@ -70,6 +71,7 @@ ggplot(df, aes(x=WORK_STATE_ABBREVIATION, y=PAID_WAGE_PER_YEAR, color=JOB_TITLE_
 **Plotly**
 **GGplot2**
 **Sqldf**
+
 #### Packages To Be Used:
 
 **Plotly**
