@@ -28,7 +28,7 @@ df['EnteroCount'] = pd.to_numeric(df['EnteroCount'])
 # Convert date of time 
 df['Date'] = pd.to_datetime(df['Date'])
 
-df = df[df['EnteroCount'] == 882]
+#df = df[df['EnteroCount'] == ]
 
 app.layout = html.Div([
 
