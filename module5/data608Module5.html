@@ -1,0 +1,70 @@
+<html>
+
+<!--
+	Jim Lung
+	Data 608
+	Module 5 Homework
+-->
+
+<head><title>Reversing Strings</title></head>
+	<body>
+		<h1>Jim Lung<br>Data 608<br>Module 5</h1>
+		
+		<script type="text/javascript">
+		document.write('<p><b>Question 1. reverse any word that you type in. </b></p>');
+		</script>
+		
+		<script type="text/javascript">
+			function revStr(){
+				var t = document.getElementById("target1");
+				t.innerHTML = document.getElementById("str").value.split("").reverse().join("");				
+			}
+		</script>
+
+		<p><br>Enter a string to reverse.<br>
+			<form name = "prob1">
+				<input id = "str" type = "text" size = 30/>
+				<input type = "button" value = "Reverse" onclick = "revStr();"/>
+			</form>
+		</p>		
+		<p id = "target1"></p>
+		
+		<script type="text/javascript">
+		document.write('<p><b>Question 2. A function takes an input number, and prints 20 multiples in 5x4 matrix.</p></b>');
+		</script>
+		
+		<script type="text/javascript">
+			function multMat(){
+				var n = document.getElementById("num").value;
+				var n_rows = 5;
+				var n_cols = 4;
+				var theader = '<table border="1">\n';
+				var tbody = '';
+				var mult = 1;
+				for( var i=0; i<n_rows;i++)
+				{
+					tbody += '<tr>';
+					for( var j=0; j<n_cols;j++)
+					{
+						tbody += '<td>';
+						tbody += n*mult++;
+						tbody += '</td>'
+					}
+					tbody += '</tr>\n';
+				}
+				var tfooter = '</table>';
+				var t2 = document.getElementById('target2');
+				t2.innerHTML = theader + tbody + tfooter;
+			}
+		</script>
+		
+		<p><br>Enter a number.<br>
+			<form name = "prob2">
+				<input id = "num" type = "number" size = 10/>
+				<input type = "button" value = "Multiples" onclick = "multMat();"/>
+			</form>
+		</p>		
+		
+		<p id = "target2"></p><br>
+	</body>
+</html>
