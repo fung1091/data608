@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+
+<html lang="en">
+ <head>
+  <meta charset="utf-8">
+  <title>Jim DATA608 HW6</title>
+  <script type="text/javascript" src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <style>
+    body {
+      background-color: #92a8d1;
+      font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+    }
+  </style>
+ </head>
+ 
+ <body>
+  <h1>Data 608 HW6 Jim Lung</h1>
+  <p>The dataset is from the United States Department of Labor, Employment & Training Administration.It is about the prevailing wage data of foreign employers seeking to file applications in the Permanent Labor Certification Program. &mdash;see <a href="https://www.foreignlaborcert.doleta.gov/performancedata.cfm">here</a> for the raw data set.</p>
+  
+  <h1>Plot 1: Aggregate Salary rates for locations </h1>
+  <div id="myDiv" style="width: 800px; height: 600px;"></div>
+  <script type="text/javascript">
+  
+    function createPlot() {
+      Plotly.d3.csv("https://raw.githubusercontent.com/fung1091/data608/master/module6/salary4.csv", function(d){ munge(d) } );
+    };
+    function munge(r) {
+      var x = [], y = [];
+        for (var i=0; i < r.length; i++) {
+            myRow = r[i];
+            x.push( myRow['state'] );
+            y.push( myRow['wage'] );
+        }
+      
+        makePlotly( x, y);
+    }
+    function makePlotly( x, y){
+        var plotDiv = document.getElementById("plot");
+        var traces = [{
+            x: x, 
+            y: y,
+            mode: 'lines+markers',
+            marker: {
+                  size: 12,
+                  opacity: 0.5
+              },
+              line: {
+                color: 'rgb(220,20,60)'
+              }
+        }];
+        var layout = {
+          title:'Aggregate Salary Rates per locations',
+          xaxis: {
+            title: 'Location'
+          },
+          yaxis: {
+            title: 'Salary'
+          }
+        };
+        Plotly.newPlot('myDiv', traces, layout);
+  
+    };
+  
+      createPlot();
+  </script>
+  <h1> Plot 2: Aggregate Salary Rates per jobs nature</h1> 
+  <div id= "myDiv1"> </div>
+  <script type="text/javascript">
+  
+  Plotly.d3.csv ("https://raw.githubusercontent.com/fung1091/data608/master/module6/salary3.csv", 
+        function(err,rows)
+      {
+        function unpack(rows,key)
+        {
+          return rows.map(function(row)
+          {return row[key];});
+        }
+          var data1 = [
+              {
+              x: unpack(rows, 'job'),
+              
+              y: unpack(rows,'wage'),
+              
+              //mode: 'markers',
+              // type: 'scatter'
+              type: 'bar'
+              //name: 'HospitalCost'
+              }
+            ];
+          var layout = {
+
+              title:'Aggregate Salary Rates per Jobs Nature',
+              xaxis: {
+              title: 'Jobs'
+              },
+              yaxis: {
+              title: 'Salary'
+              }
+              ,
+              height: 600,
+              width: 800
+            }
+            Plotly.newPlot('myDiv1', data1, layout);
+          
+      });
+      createPlot();   
+  </script>
+
+     
+ </body>
+</html
