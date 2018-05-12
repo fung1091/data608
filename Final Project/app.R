@@ -4,6 +4,7 @@
 ################################
 
 #
+library(stringi)
 library(dplyr)
 library(ggplot2)
 library(googleVis)
@@ -12,6 +13,9 @@ library(shiny)
 library(shinydashboard)
 library(RColorBrewer)
 library(DT)
+#library(fiftystater)
+
+#data("fifty_states")
 
 Sys.setlocale('LC_ALL','C') 
 options(shiny.trace=F)
@@ -299,7 +303,17 @@ body <- dashboardBody(
 )
 
 
-salary_refined <- read.csv("salary_refined.csv")
+#data("fifty_states")
+#fifty_states <- data("fifty_states")
+
+
+fifty_states <- read.csv("https://raw.githubusercontent.com/fung1091/data608/master/Final%20Project/fifty_states.csv")
+
+
+githubURL <- "https://github.com/fung1091/data608/raw/master/Final%20Project/proposal/salary.rdata"
+load(url(githubURL))
+salary_refined <- x
+#salary_refined <- read.csv("salary_refined.csv")
 
 server <- function(input, output) { 
   
