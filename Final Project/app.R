@@ -30,8 +30,8 @@ sidebar <- dashboardSidebar(
     menuItem("About", tabName = "myTabForIntroduction", icon = icon("fa fa-compass")),
     menuItem("Scatter Plot", tabName = "myTabForScatterPlot", icon = icon("fa fa-compass")),
     menuItem("Data Explorer", tabName = "myTabForDataTable", icon = icon("table")),    
-    menuItem("Comparison Map", tabName = "myTabForGvisMap", icon = icon("table")),
-    menuItem("External Info", tabName = "myTabForExternalInfo", icon = icon("fa fa-compass"))
+    menuItem("Comparison Job Title", tabName = "myTabForGvisMap", icon = icon("table")),
+    menuItem("Reference Info", tabName = "myTabForExternalInfo", icon = icon("fa fa-compass"))
     
   )
 ) 
@@ -221,13 +221,13 @@ body <- dashboardBody(
     ),
     
     tabItem("myTabForGvisMap",
-            h2("Salary Comparison Map"),
+            h2("Jobs Comparison"),
             
             fluidRow(
               box(
                 title = "How to use (Toggle the + button)", solidHeader = TRUE,
                 status="warning", width=12, collapsible = TRUE, collapsed = TRUE,
-                h5("The Salary Comparison Map provides a way to compare salary distribution of two professions in the United States. You can choose two professions (job titles), then the distribution map and data table will show the updated result. You can also sort the results in the table by state, average salary and the number of jobs."),
+                h5("The Salary Comparison Map provides a way to compare salary distribution of two professions in the United States. You can choose two professions (job titles), and data table will show the updated result. You can also sort the results in the table by state, average salary and the number of jobs."),
                 br(),
                 h5("Note that when the panel is initialized, all the data which is not filtered yet by state, profession, average salary and the number of jobs."),
                 br()
@@ -251,29 +251,30 @@ body <- dashboardBody(
                                     ),
                                     multiple = FALSE
                      ))
-            ),
+            ) , 
+            ## Hosting problem with shinyapps, but it work locally, so we don't use this in this uploaded version
+            #fluidRow(
+            #  box(
+            #    title = "Map 1", solidHeader = TRUE,
+            #    collapsible = TRUE, 
+            #    plotOutput("myGvisMap1") 
+            #    
+            #  ),
+            #  box(
+            #    title = "Map 2", solidHeader = TRUE,
+            #    collapsible = TRUE,
+            #    plotOutput("myGvisMap2") 
+            #  )
+            #),
             fluidRow(
               box(
-                title = "Map 1", solidHeader = TRUE,
-                collapsible = TRUE, 
-                plotOutput("myGvisMap1") 
-                
-              ),
-              box(
-                title = "Map 2", solidHeader = TRUE,
-                collapsible = TRUE,
-                plotOutput("myGvisMap2") 
-              )
-            ),
-            fluidRow(
-              box(
-                title = "DataTable for Map 1", solidHeader = TRUE,
+                title = "DataTable 1", solidHeader = TRUE,
                 collapsible = TRUE,
                 DT::dataTableOutput("myComparisonTableByJobTitle1")
                 
               ),
               box(
-                title = "DataTable for Map 2", solidHeader = TRUE,
+                title = "DataTable 2", solidHeader = TRUE,
                 collapsible = TRUE,
                 DT::dataTableOutput("myComparisonTableByJobTitle2")
               )
@@ -445,7 +446,7 @@ server <- function(input, output) {
   ###########################################################
   
   #////////////////////////////////////////////////////////////////////////////////
-  # For Avg.Overall Salary (NOT useful) ex. Avg.salary of each state.. NOT our interest.
+  # For Avg.Overall Salary (NOT used) ex. Avg.salary of each state.. 
   #////////////////////////////////////////////////////////////////////////////////
   updateInputDataForMapOverall <- reactive({  
     dataFilteredForMap <- salary_refined
@@ -513,7 +514,8 @@ server <- function(input, output) {
   
   
   #////////////////////////////////////////////////////////////////////////////////
-  # googleVis Map 
+  # RenderPlot Map , because the orinally data doesn't have long and lat, so we need use library (fifty_states)
+  # But it found the hoisting problem between local and on shinyapps, it will not be used.
   #////////////////////////////////////////////////////////////////////////////////
   output$myGvisMap1 <- renderPlot({
     
